@@ -2,7 +2,7 @@
 
 ```
 $ git clone https://github.com/VincentHKH/kmb-offsite-test.git
-$ yarn 
+$ yarn install
 $ yarn start
 
 Visit http://localhost:3000
