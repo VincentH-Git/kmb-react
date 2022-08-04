@@ -5,7 +5,7 @@ import { BsExclamationCircle } from 'react-icons/bs';
 
 
 
-interface BusListing {
+export interface BusListing {
   data_timestamp: string,
   dest_tc: string,
   eta: string,
@@ -13,17 +13,19 @@ interface BusListing {
   busStop: string,
   busStopId: string,
   timeLeft: string | null,
+  dir: string
+  service_type: string
 }
 
 export default function BusListing() {
-  const [busRoutes, setBusRoutes] = useState<Array<BusListing>>([]);
+  const [busRoutesEta, setBusRoutesEta] = useState<Array<BusListing>>([]);
   // let busRoute: Array<BusListing> = [];
   useEffect(() => {
     fetchData();
     const intervalId = setInterval(() => {
       fetchData();
     }, 10000);
-    
+    return () => clearInterval(intervalId);
   }, [])
 
 
@@ -46,6 +48,9 @@ export default function BusListing() {
           if (route["eta"]) {
             let etaHour = route["eta"].split("T")[1].slice(0, 2)
             let etaMin = route["eta"].split("T")[1].slice(3, 5)
+            if (parseInt(etaHour) < parseInt(originalHour)) {
+              etaHour = `${parseInt(etaHour) + 24}`
+            }
             route["timeLeft"] = ((parseInt(etaHour) - parseInt(originalHour)) * 60 + parseInt(etaMin) - parseInt(originalMin)).toString();
           } else {
             route["timeLeft"] = null
@@ -72,6 +77,9 @@ export default function BusListing() {
           if (route["eta"]) {
             let etaHour = route["eta"].split("T")[1].slice(0, 2)
             let etaMin = route["eta"].split("T")[1].slice(3, 5)
+            if (parseInt(etaHour) < parseInt(originalHour)) {
+              etaHour = `${parseInt(etaHour) + 24}`
+            }
             route["timeLeft"] = ((parseInt(etaHour) - parseInt(originalHour)) * 60 + parseInt(etaMin) - parseInt(originalMin)).toString();
           } else {
             route["timeLeft"] = null
@@ -90,12 +98,12 @@ export default function BusListing() {
         return 0;
       })
       console.log(busRoute)
-      setBusRoutes(busRoute)
+      setBusRoutesEta(busRoute)
     } catch (error) {
       console.log(error)
     }
   }
-  console.log(busRoutes.length)
+  console.log(busRoutesEta.length)
   return (
     <div className="container">
       <div className='header'>
@@ -103,9 +111,9 @@ export default function BusListing() {
           KMB 1933
         </div>
       </div>
-      {busRoutes.length > 0 ?
-        busRoutes.map((route, key) =>
-          <EachBus key={key} routeNumber={route.route} destination={route.dest_tc} busStop={route.busStop} timeLeft={route.timeLeft} busStopId={route.busStopId}></EachBus>
+      {busRoutesEta.length > 0 ?
+        busRoutesEta.map((route, key) =>
+          <EachBus key={key} routeNumber={route.route} destination={route.dest_tc} busStop={route.busStop} timeLeft={route.timeLeft} busStopId={route.busStopId} direction={route.dir} service={route.service_type}></EachBus>
         )
         : ""}
     </div>
@@ -118,6 +126,8 @@ interface Props {
   busStop: string,
   busStopId: string,
   timeLeft: string | null,
+  direction: string,
+  service: string
 }
 
 
@@ -125,7 +135,10 @@ interface Props {
 function EachBus(props: Props) {
   let navigate = useNavigate();
   return (
-    <div className='row' onClick={() => navigate(`/${props.busStopId}/${props.routeNumber}`)}>
+    <div className='row' onClick={() => {
+
+      navigate(`/${props.busStopId}/${props.routeNumber}/${props.service}/${props.direction}`)
+    }}>
       <div className='busNumberContainer'>
         <div className='busNumberText'>
           {props.routeNumber}
