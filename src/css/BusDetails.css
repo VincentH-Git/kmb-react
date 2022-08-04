@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital@0;1&display=swap');
+
+.container {
+    font-family: 'Noto Sans TC', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+}
+
 .header {
     background-color: #E41F31;
     width: 100%;
@@ -11,18 +20,69 @@
 
 .header .busNum {
     margin-left: 14px;
-}  
+}
 
 .header .direction {
     margin-left: 6px;
-}  
+}
 
 .header .destination {
     margin-left: 8px;
-}  
+}
 
-.map{
-    height: 40%;
+.map {
+    height: 50%;
     width: 100%;
     border-bottom: 4px solid #E41F31;
+}
+
+.bottomPart {
+    width: 100%;
+    margin-top: 12px;
+    padding-left: 24px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.bottomPart .busStop {
+    color: #3C4952;
+    font-size: 24px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.bottomPart .eachRow {
+    margin-left: 16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+
+.bottomPart .eachRow .time {
+    color: #0B5DA7;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.bottomPart .eachRow .unit {
+    font-size: 14px;
+    margin-left: 5px;
+    line-height: 14px;
+    position: relative;
+    bottom: 1px;
+    color: #444D52;
+}
+
+.bottomPart .eachRow .nextText {
+    font-size: 20px;
+    margin-left: 5px;
+    color: #8C8C8C;
+    line-height: 20px;
+
+}
+.bottomPart .noShow {
+    color: #0B5DA7;
+    font-size: 20px;
+    line-height: 20px;
 }
