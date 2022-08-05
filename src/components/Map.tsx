@@ -14,7 +14,7 @@ export default function Map(props:Props) {
 
   return (
     <GoogleMap zoom={20} center={center} mapContainerClassName="mapContainer">
-      <MarkerF position={center} icon={{ url: vector, scaledSize: new google.maps.Size(25, 25) }}/>
+      <MarkerF position={center} icon={{ url: vector, scaledSize: new google.maps.Size(30, 30) }}/>
     </GoogleMap>
   );
 }
