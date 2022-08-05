@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import '../css/BusListing.css';
 import { BsExclamationCircle } from 'react-icons/bs';
-
+import PullToRefresh from "react-simple-pull-to-refresh";
+import { Oval } from 'react-loading-icons'
 
 
 export interface BusListing {
@@ -103,7 +104,15 @@ export default function BusListing() {
       console.log(error)
     }
   }
-  console.log(busRoutesEta.length)
+  
+  const fetchDataByScrollDown = (): Promise<void> => {
+    return new Promise(res => {
+      setTimeout(() => {
+        res(fetchData())
+      }, 900);
+    });
+  };
+
   return (
     <div className="container">
       <div className='header'>
@@ -111,11 +120,18 @@ export default function BusListing() {
           KMB 1933
         </div>
       </div>
-      {busRoutesEta.length > 0 ?
-        busRoutesEta.map((route, key) =>
-          <EachBus key={key} routeNumber={route.route} destination={route.dest_tc} busStop={route.busStop} timeLeft={route.timeLeft} busStopId={route.busStopId} direction={route.dir} service={route.service_type}></EachBus>
-        )
-        : ""}
+      <div className="searchContainer">
+        <input type="text" className="inputBar" placeholder="輸入巴士號碼" maxLength={4}></input>
+      </div>
+      <PullToRefresh onRefresh={fetchDataByScrollDown} className="pullToRefresh" pullingContent="" refreshingContent={<Oval stroke={"#656E75"} height={"24px"}/>}>
+        <div >
+          {busRoutesEta.length > 0 ?
+            busRoutesEta.map((route, key) =>
+              <EachBus key={key} routeNumber={route.route} destination={route.dest_tc} busStop={route.busStop} timeLeft={route.timeLeft} busStopId={route.busStopId} direction={route.dir} service={route.service_type}></EachBus>
+            )
+            : ""}
+        </div>
+      </PullToRefresh>
     </div>
   );
 }

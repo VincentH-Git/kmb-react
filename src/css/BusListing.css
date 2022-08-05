@@ -4,7 +4,7 @@
     font-family: 'Noto Sans TC', sans-serif;
     width: 100vw;
     height: 100vh;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .header {
@@ -22,6 +22,45 @@
     color: white;
     font-weight: 600;
     margin-left: 16px;
+}
+
+.searchContainer{
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 48px;
+}
+
+.searchContainer .inputBar{
+    width: 97%;
+    height: 36px;
+    border: 0;
+    font-size: 18px;
+    color:#E41F31;
+    text-align: center;
+    caret-color: transparent;
+}
+
+/* .searchContainer .inputBar:focus::-webkit-input-placeholder {
+    color: transparent;
+} */
+
+.searchContainer .inputBar:focus-visible {
+    outline: 0px;
+}
+
+.pullToRefresh{
+    width: 100%;
+    height: calc(100vh - 96px) !important;
+}
+
+.ptr__loader {
+    margin-top: 24px !important;
+
 }
 
 .row {
