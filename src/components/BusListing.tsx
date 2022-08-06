@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../css/BusListing.css';
 import { BsExclamationCircle } from 'react-icons/bs';
 import PullToRefresh from "react-simple-pull-to-refresh";
@@ -20,7 +20,10 @@ export interface BusListing {
 
 export default function BusListing() {
   const [busRoutesEta, setBusRoutesEta] = useState<Array<BusListing>>([]);
-  // let busRoute: Array<BusListing> = [];
+  const [filteredBusRoutesEta, setFilteredBusRoutesEta] = useState<Array<BusListing>>([]);
+  const [inputValue, setInputValue] = useState<string>("");
+
+  // fetch data in every 10 seconds
   useEffect(() => {
     fetchData();
     const intervalId = setInterval(() => {
@@ -28,6 +31,22 @@ export default function BusListing() {
     }, 10000);
     return () => clearInterval(intervalId);
   }, [])
+
+  //
+  useEffect(() => {
+    if (inputValue.length > 0) {
+      let filteredValue = busRoutesEta.filter(route => {
+        let routeNumber = route.route.slice(0, inputValue.length)
+        if (inputValue.toUpperCase() == routeNumber) {
+          return route
+        }
+      })
+      setFilteredBusRoutesEta(filteredValue)
+    } else{
+      setFilteredBusRoutesEta(busRoutesEta)
+    }
+
+  }, [inputValue, busRoutesEta])
 
 
   const fetchData = async () => {
@@ -104,7 +123,7 @@ export default function BusListing() {
       console.log(error)
     }
   }
-  
+
   const fetchDataByScrollDown = (): Promise<void> => {
     return new Promise(res => {
       setTimeout(() => {
@@ -121,12 +140,12 @@ export default function BusListing() {
         </div>
       </div>
       <div className="searchContainer">
-        <input type="text" className="inputBar" placeholder="輸入巴士號碼" maxLength={4}></input>
+        <input type="text" className="inputBar" placeholder="輸入巴士號碼" maxLength={4} value={inputValue} onChange={(event) => { setInputValue(event.target.value) }}></input>
       </div>
-      <PullToRefresh onRefresh={fetchDataByScrollDown} className="pullToRefresh" pullingContent="" refreshingContent={<Oval stroke={"#656E75"} height={"24px"}/>}>
+      <PullToRefresh onRefresh={fetchDataByScrollDown} className="pullToRefresh" pullingContent="" refreshingContent={<Oval stroke={"#656E75"} height={"24px"} />}>
         <div >
-          {busRoutesEta.length > 0 ?
-            busRoutesEta.map((route, key) =>
+          {filteredBusRoutesEta.length > 0 ?
+            filteredBusRoutesEta.map((route, key) =>
               <EachBus key={key} routeNumber={route.route} destination={route.dest_tc} busStop={route.busStop} timeLeft={route.timeLeft} busStopId={route.busStopId} direction={route.dir} service={route.service_type}></EachBus>
             )
             : ""}

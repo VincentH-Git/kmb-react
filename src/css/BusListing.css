@@ -43,6 +43,7 @@
     color:#E41F31;
     text-align: center;
     caret-color: transparent;
+    text-transform:uppercase
 }
 
 /* .searchContainer .inputBar:focus::-webkit-input-placeholder {
