@@ -22,9 +22,9 @@ export default function BusDetails() {
   // const [busRouteInfo, setBusRouteInfo] = useState([]);
   const [busRouteEta, setBusRoutesEta] = useState<Array<BusListing>>([]);
   const [busStopInfo, setBusStopInfo] = useState<BusStopInfo>()
-
   const fetchData = async () => {
     try {
+      // fetch the data and process to get the arrival time of the bus
       let res = await fetch(
         `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stopId}/${route}/${service}`
       );
@@ -48,12 +48,13 @@ export default function BusDetails() {
 
       }
       setBusRoutesEta(processedBusStopEta)
-      console.log(processedBusStopEta)
-      // let busDirection = (direction == "O") ? "outbound" : "inbound"
+      
+      //fetch busStop Info (latitude, longitude)
       let res2 = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${stopId}`)
       let busStop = await res2.json();
       setBusStopInfo(busStop.data)
-      console.log(busStop.data)
+
+    
     } catch (error) {
       console.log(error)
     }
@@ -77,7 +78,7 @@ export default function BusDetails() {
         {busRouteEta.length > 0 ? <div className="destination"> {busRouteEta[0].dest_tc} </div> : ""}
       </div>
       <div className="map">
-        {busStopInfo ? <Map latitude={parseFloat(busStopInfo.lat)} longitude={parseFloat(busStopInfo.long)} /> : ""}
+        {busStopInfo ? <Map latitude={parseFloat(busStopInfo.lat)} longitude={parseFloat(busStopInfo.long)} busStopName={busStopInfo.name_tc}/> : ""}
       </div>
       <div className="bottomPart">
         {busStopInfo ? <div className="busStop">{busStopInfo.name_tc} </div> : ""}
