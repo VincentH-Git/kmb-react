@@ -117,7 +117,7 @@ export default function BusListing() {
         }
         return 0;
       })
-      console.log(busRoute)
+
       setBusRoutesEta(busRoute)
     } catch (error) {
       console.log(error)
