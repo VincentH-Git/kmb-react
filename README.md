@@ -31,8 +31,8 @@ visit http://localhost:3000
 ### Bus listing Part:  
 Bus stop with identical name can have different bus stop ID. For simplicity, bus listing results are based on the Bus stop ID "BFA3460955AC820C" & "5FB1FCAF80F3D97D".  
 
-### Bus detail Part:  Bus detail Part:  
-Maximum allowed waypoints is 25, so I systematically select 25 bus stops, including the bus stop (in red color) that you have clicked in, to display on the map.  
+### Bus detail Part:
+Maximum allowed waypoints is 25, so I systematically select 25 bus stops, including the bus stop (in red color) that you have clicked in, to display on the map.
 As not all waypoints are chosen, the route shown on the map may be a little bit different from the exact route.
 <br/>
 <br/>
