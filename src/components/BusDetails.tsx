@@ -17,26 +17,25 @@ export default function BusDetails() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}` || "",
   });
-  let navigate = useNavigate();
-  let { stopId, route, direction, service } = useParams()
-  // const [busRouteInfo, setBusRouteInfo] = useState([]);
+  const navigate = useNavigate();
+  const { stopId, route, direction, service } = useParams()
   const [busRouteEta, setBusRoutesEta] = useState<Array<BusListing>>([]);
   const [busStopInfo, setBusStopInfo] = useState<BusStopInfo>()
   const fetchData = async () => {
     try {
       // fetch the data and process to get the arrival time of the bus
-      let res = await fetch(
+      const res = await fetch(
         `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stopId}/${route}/${service}`
       );
-      let busStopEta = await res.json();
-      let processedBusStopEta = []
+      const busStopEta = await res.json();
+      const processedBusStopEta = []
       for (let route of busStopEta.data) {
         //calculate the time left
-        let originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
-        let originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
+        const originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
+        const originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
         if (route["eta"]) {
           let etaHour = route["eta"].split("T")[1].slice(0, 2)
-          let etaMin = route["eta"].split("T")[1].slice(3, 5)
+          const etaMin = route["eta"].split("T")[1].slice(3, 5)
           if (parseInt(etaHour) < parseInt(originalHour)) {
             etaHour = `${parseInt(etaHour) + 24}`
           }
@@ -45,13 +44,12 @@ export default function BusDetails() {
           route["timeLeft"] = null
         }
         processedBusStopEta.push(route)
-
       }
       setBusRoutesEta(processedBusStopEta)
       
       //fetch busStop Info (latitude, longitude)
-      let res2 = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${stopId}`)
-      let busStop = await res2.json();
+      const res2 = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${stopId}`)
+      const busStop = await res2.json();
       setBusStopInfo(busStop.data)
 
     
@@ -68,7 +66,6 @@ export default function BusDetails() {
     return () => clearInterval(intervalId);
   }, [])
 
-  if (!isLoaded) return <div>Loading...</div>;
   return (
     <div className="container">
       <div className="header">
@@ -78,7 +75,7 @@ export default function BusDetails() {
         {busRouteEta.length > 0 ? <div className="destination"> {busRouteEta[0].dest_tc} </div> : ""}
       </div>
       <div className="map">
-        {busStopInfo ? <Map latitude={parseFloat(busStopInfo.lat)} longitude={parseFloat(busStopInfo.long)} busStopName={busStopInfo.name_tc}/> : ""}
+        {isLoaded && busStopInfo ? <Map latitude={parseFloat(busStopInfo.lat)} longitude={parseFloat(busStopInfo.long)} busStopName={busStopInfo.name_tc}/> : <div>Loading...</div>}
       </div>
       <div className="bottomPart">
         {busStopInfo ? <div className="busStop">{busStopInfo.name_tc} </div> : ""}

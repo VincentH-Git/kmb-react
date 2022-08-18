@@ -35,8 +35,8 @@ export default function BusListing() {
   //
   useEffect(() => {
     if (inputValue.length > 0) {
-      let filteredValue = busRoutesEta.filter(route => {
-        let routeNumber = route.route.slice(0, inputValue.length)
+      const filteredValue = busRoutesEta.filter(route => {
+        const routeNumber = route.route.slice(0, inputValue.length)
         if (inputValue.toUpperCase() == routeNumber) {
           return route
         }
@@ -51,11 +51,11 @@ export default function BusListing() {
 
   const fetchData = async () => {
     try {
-      let busRoute: Array<BusListing> = []
-      let res1 = await fetch(
+      const busRoute: Array<BusListing> = []
+      const res1 = await fetch(
         "https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/BFA3460955AC820C"
       );
-      let data1: { data: Array<BusListing> } = await res1.json();
+      const data1: { data: Array<BusListing> } = await res1.json();
       let routeNumber: string = "";
 
       for (let route of data1.data) {
@@ -63,11 +63,11 @@ export default function BusListing() {
           route["busStop"] = "荃景圍天橋"
           route["busStopId"] = "BFA3460955AC820C"
           //calculate the time left
-          let originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
-          let originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
+          const originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
+          const originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
           if (route["eta"]) {
             let etaHour = route["eta"].split("T")[1].slice(0, 2)
-            let etaMin = route["eta"].split("T")[1].slice(3, 5)
+            const etaMin = route["eta"].split("T")[1].slice(3, 5)
             if (parseInt(etaHour) < parseInt(originalHour)) {
               etaHour = `${parseInt(etaHour) + 24}`
             }
@@ -80,10 +80,10 @@ export default function BusListing() {
         }
       }
 
-      let res2 = await fetch(
+      const res2 = await fetch(
         "https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/5FB1FCAF80F3D97D"
       );
-      let data2: { data: Array<BusListing> } = await res2.json();
+      const data2: { data: Array<BusListing> } = await res2.json();
       routeNumber = "0"
 
       for (let route of data2.data) {
@@ -92,11 +92,11 @@ export default function BusListing() {
           route["busStopId"] = "5FB1FCAF80F3D97D"
 
           //calculate the time left
-          let originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
-          let originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
+          const originalHour = route["data_timestamp"].split("T")[1].slice(0, 2)
+          const originalMin = route["data_timestamp"].split("T")[1].slice(3, 5)
           if (route["eta"]) {
             let etaHour = route["eta"].split("T")[1].slice(0, 2)
-            let etaMin = route["eta"].split("T")[1].slice(3, 5)
+            const etaMin = route["eta"].split("T")[1].slice(3, 5)
             if (parseInt(etaHour) < parseInt(originalHour)) {
               etaHour = `${parseInt(etaHour) + 24}`
             }
@@ -168,7 +168,7 @@ interface Props {
 
 
 function EachBus(props: Props) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className='row' onClick={() => {
 

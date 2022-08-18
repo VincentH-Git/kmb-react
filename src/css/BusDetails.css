@@ -16,6 +16,8 @@
     align-items: center;
     color: white;
     font-weight: 500;
+    caret-color: transparent;
+
 }
 
 .header .busNum {
@@ -42,6 +44,7 @@
     padding-left: 24px;
     box-sizing: border-box;
     text-align: left;
+    caret-color: transparent;
 }
 
 .bottomPart .busStop {

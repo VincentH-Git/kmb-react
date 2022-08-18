@@ -16,13 +16,18 @@
     align-items: center;
     position: sticky;
     top: 0;
+    cursor:default;
 }
+
 
 .header .text {
     color: white;
     font-weight: 600;
     margin-left: 16px;
+    caret-color: transparent;
 }
+
+
 
 .searchContainer{
     background-color: #F5F5F5;
