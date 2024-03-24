@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital@0;1&display=swap');
+
+.container {
+    font-family: 'Noto Sans TC', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    background-color: #E41F31;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    cursor:default;
+}
+
+
+.header .text {
+    color: white;
+    font-weight: 600;
+    margin-left: 16px;
+    caret-color: transparent;
+}
+
+
+
+.searchContainer{
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 48px;
+}
+
+.searchContainer .inputBar{
+    width: 97%;
+    height: 36px;
+    border: 0;
+    font-size: 18px;
+    color:#E41F31;
+    text-align: center;
+    caret-color: transparent;
+    text-transform:uppercase
+}
+
+/* .searchContainer .inputBar:focus::-webkit-input-placeholder {
+    color: transparent;
+} */
+
+.searchContainer .inputBar:focus-visible {
+    outline: 0px;
+}
+
+.pullToRefresh{
+    width: 100%;
+    height: calc(100vh - 96px) !important;
+}
+
+.ptr__loader {
+    margin-top: 24px !important;
+
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    height: 65px;
+    border-bottom: 2px #F5F5F5 solid;
+}
+
+.row:hover {
+    /* filter: brightness(80%); */
+    background-color: #00000008;
+    cursor: pointer;
+}
+
+.busNumberContainer {
+    flex: 3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 16px;
+}
+
+.busNumberText {
+    color: #3C4952;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.busInfoContainer {
+    /* background-color: rgb(55, 0, 255); */
+    color: #3C4952;
+    flex: 10;
+    padding: 10px 0;
+}
+
+.busInfoContainer .upperPart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.busInfoContainer .upperPart .label {
+    font-size: 12px;
+    line-height: 24px;
+    color: #656E75;
+}
+
+.busInfoContainer .upperPart .content {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 4px
+}
+
+.busInfoContainer .LowerPart {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 16px;
+    color: #656E75;
+}
+
+
+.nextBusContainer {
+    /* background-color: rgb(255, 0, 85); */
+    flex: 2;
+    padding: 10px 16px;
+}
+
+.exclamationContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #0B5DA7
+}
+
+
+.nextBusContainer .time {
+    color: #0B5DA7;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: right;
+}
+
+.nextBusContainer .label {
+    font-size: 13px;
+    color: #656E75;
+    text-align: right;
+}
